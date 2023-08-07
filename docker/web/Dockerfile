@@ -17,6 +17,14 @@ USER engine
 COPY bin/web /app/bin/web
 
 COPY scoring_engine /app/scoring_engine
+
+USER root
+
+RUN chmod -R 777 /app
+RUN chmod -R 777 /home
+
+USER engine
+
 RUN pip install -e .
 
 CMD ["./wait-for-container.sh", "bootstrap", "uwsgi", "--socket", ":5000", "--wsgi-file", "bin/web", "--master", "--processes", "4", "--threads", "2", "--stats", "0.0.0.0:9191", "--stats-http"]

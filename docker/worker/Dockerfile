@@ -5,7 +5,7 @@ USER root
 RUN \
   apt-get update && \
   # apt-get install -y apt-transport-https software-properties-common
-  apt-get install -y apt-transport-https gpg
+  apt-get install -y apt-transport-https gpg netcat
 
 # ICMP Check
 RUN apt-get install -y iputils-ping
@@ -90,9 +90,12 @@ RUN rm -rf /var/lib/apt/lists/*
 COPY bin/worker /app/bin/worker
 COPY docker/worker/sudoers /etc/sudoers
 
-USER engine
+USER root
 
 COPY scoring_engine /app/scoring_engine
+RUN chmod -R 777 /app
 RUN pip install -e .
+
+USER engine
 
 CMD ["./wait-for-port.sh", "redis:6379", "/app/bin/worker"]

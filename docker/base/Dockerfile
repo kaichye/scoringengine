@@ -35,6 +35,11 @@ COPY scoring_engine/version.py /app/scoring_engine/version.py
 COPY scoring_engine/config.py /app/scoring_engine/config.py
 COPY scoring_engine/config_loader.py /app/scoring_engine/config_loader.py
 
+USER root
+RUN chmod -R 777 /app
+RUN chmod -R 777 /home
+USER engine
+
 # Only install dependencies, don't install scoring engine
 # Credit goes to https://stackoverflow.com/a/53251585
 RUN python setup.py egg_info
