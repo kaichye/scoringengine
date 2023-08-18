@@ -246,7 +246,7 @@ teams:
     - matching_content: "^SUCCESS"
       properties:
       - name: remotefilepath
-        value: "/pub/Important"
+        value: "/pub/upload/Important"
       - name: filecontents
         value: This is a very important file used for scoring! It'd be a shame if someone were to modify it ;)
   #- name: ICMP
