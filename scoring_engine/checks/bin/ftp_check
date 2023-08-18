@@ -20,27 +20,27 @@ remote_filepath = sys.argv[5]
 upload_file_contents = sys.argv[6]
 
 # Connect and Upload file to server
-session = ftplib.FTP()
-session.connect(host=host, port=int(port))
-session.login(username, password)
-tmp_fd, tmp_filename = tempfile.mkstemp(text=True)
-with open(tmp_filename, 'w') as fobj:
-    fobj.write(upload_file_contents)
-upload_response_text = session.storlines('STOR {0}'.format(remote_filepath), open(tmp_filename, 'rb'))
-session.quit()
-session.close()
-os.remove(tmp_filename)
+#session = ftplib.FTP()
+#session.connect(host=host, port=int(port))
+#session.login()
+#tmp_fd, tmp_filename = tempfile.mkstemp(text=True)
+#with open(tmp_filename, 'w') as fobj:
+#    fobj.write(upload_file_contents)
+#upload_response_text = session.storlines('STOR {0}'.format(remote_filepath), open(tmp_filename, 'rb'))
+#session.quit()
+#session.close()
+#os.remove(tmp_filename)
 
 # Success code is 226
-if not upload_response_text.startswith('226'):
-    print("ERROR: Unable to upload file")
-    print(upload_response_text)
-    sys.exit(1)
+#if not upload_response_text.startswith('226'):
+#    print("ERROR: Unable to upload file")
+#    print(upload_response_text)
+#    sys.exit(1)
 
 # Connect and Download file
 session = ftplib.FTP()
 session.connect(host=host, port=int(port))
-session.login(username, password)
+session.login()
 downloaded_lines = []
 download_response_text = session.retrlines('RETR {0}'.format(remote_filepath), downloaded_lines.append)
 session.quit()
